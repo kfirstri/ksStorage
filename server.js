@@ -1,8 +1,14 @@
 const express = require('express')
 const consts = require('./consts')
+const routes = require('./endpoints')
 
 const app = express()
 
-app.get('/', (req, res) => res.send('Hello World!'))
+// Middlewares for json handeling and body parsing
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Load all the app routes
+app.use('/', routes)
 
 app.listen(consts.PORT, () => console.log(`Listening on port ${consts.PORT}`))
