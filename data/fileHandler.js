@@ -24,8 +24,27 @@ const addFile = (file, user, isPrivate) => {
       resolve(currFile)
     }).catch(reject)
   })
+};
+
+// Return the file object from the 'db' with the correct owner and downloadpath
+const getFileByName = (owner, name) => {
+  let currFile = filesData.filter((file) => {
+    return file.owner === owner && file.name === name && !file.isPrivate;
+  })[0];
+
+  return currFile ? currFile : false;
+}
+
+const getFileByToken = (token) => {
+  let currFile = filesData.filter((file) => {
+    return file.token == token;
+  })[0];
+
+  return currFile ? currFile : false;
 }
 
 module.exports = {
-  addFile
+  addFile,
+  getFileByName,
+  getFileByToken
 }
